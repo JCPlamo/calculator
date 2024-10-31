@@ -90,8 +90,10 @@ function populateDisplay()
     //Listeners for the operators
     const operatorButtons = document.querySelectorAll(".operatorBtns");
     operatorButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const op = button.textContent; //Get the operator symbol from the button
+        button.addEventListener('click', () => 
+        {
+            //Get the operator symbol from the button
+            const op = button.textContent;
 
             //Check if inputs are not all taken
             if (!firstNum || !operator || !secondNum)
@@ -119,11 +121,13 @@ function populateDisplay()
             display.textContent = "Cannot divide by zero";
             resetCalculator();
         }
+        // Ensure both numbers and the operator are present
         if (firstNum && operator && secondNum) 
-        { // Ensure both numbers and the operator are present
+        {
             const result = operate(firstNum, operator, secondNum);
-            display.textContent = result;                               //Display the result
-            resetCalculator();                                          //Reset for the next operation
+            resetCalculator();
+            firstNum = result;      //Make the result the firstNum so user can use it until clear button is pressed
+            display.textContent = firstNum;
         }
     });
 
@@ -131,7 +135,7 @@ function populateDisplay()
     const clear = document.querySelector(".clearBtn");
     clear.addEventListener('click', () => {
         display.textContent = "";
-        resetCalculator();
+        resetCalculator();      //Reset for the next operation
     });
 
     //Listener for the decimal button
@@ -188,10 +192,11 @@ function populateDisplay()
 
 function operatorPressed(op) 
 {
-    if (firstNum && !operator) {                            //Ensure a first number exists and no operator is set
-        operator = op;                                      //Set the operator
-        inputOneTaken = true;                               //Switch to inputting second number
-        // display.textContent = firstNum + " " + operator;
+    //Ensure a first number exists and no operator is set
+    if (firstNum && !operator)
+    {
+        operator = op;              //Set the operator
+        inputOneTaken = true;       //Switch to inputting second number
     }
 }
 
