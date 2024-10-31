@@ -85,7 +85,7 @@ function populateDisplay()
     }
 
     //Listeners for the operators
-    const operatorButtons = document.querySelectorAll(".operatorBtns")
+    const operatorButtons = document.querySelectorAll(".operatorBtns");
     operatorButtons.forEach(button => {
         button.addEventListener('click', () => {
             const op = button.textContent; //Get the operator symbol from the button
@@ -95,7 +95,7 @@ function populateDisplay()
             {
                 operatorPressed(op);                                    //Call the function to handle the operator
             }
-            //If all inputs are taken, and user clicks on another operator button
+            //If all inputs are taken, and user clicks on another operator button (a.k.a. operator chaining)
             else
             {
                 const result = operate(firstNum, operator, secondNum);
@@ -108,7 +108,7 @@ function populateDisplay()
         });
     });
 
-    const operatorEquals = document.querySelector(".operatorEquals")
+    const operatorEquals = document.querySelector(".operatorEquals");
     operatorEquals.addEventListener('click', () => {
         //If user tries to divide by zero
         if(operator === "/" && secondNum === "0")
@@ -125,14 +125,14 @@ function populateDisplay()
     });
 
     //Listener for the clear button
-    const clear = document.querySelector(".clearBtn")
+    const clear = document.querySelector(".clearBtn");
     clear.addEventListener('click', () => {
         display.textContent = "";
         resetCalculator();
     });
 
     //Listener for the decimal button
-    const decimal = document.querySelector(".decimalBtn")
+    const decimal = document.querySelector(".decimalBtn");
     decimal.addEventListener('click', () => {
         //Decimal for the first number
         if (!decimalOnePresent && firstNum && !operator)
@@ -150,6 +150,37 @@ function populateDisplay()
         }
     });
 
+    //Listener for the backspace button
+    const backspace = document.querySelector(".backspaceBtn");
+    backspace.addEventListener('click', () => {
+        if(firstNum && !operator)
+        {
+            //If there is only one number in the input
+            if (firstNum.length === 1)
+            {
+                display.textContent = "";
+                firstNum = "";
+            }
+            else if (firstNum.length > 1)
+            {
+                firstNum = firstNum.substring(0, firstNum.length - 1);      //Removes the last character in the string
+                display.textContent = firstNum;
+            }
+        }
+        else if (secondNum)
+        {
+            if (secondNum.length === 1)
+            {
+                secondNum = "";
+                display.textContent = firstNum + " " + operator;                        //Keep the first number and operator visible
+            }
+            else if (secondNum.length > 1)
+            {
+                secondNum = secondNum.substring(0, secondNum.length - 1);
+                display.textContent = firstNum + " " + operator + " " + secondNum;
+            }
+        }
+    });
 }
 
 function operatorPressed(op) 
