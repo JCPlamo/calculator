@@ -69,13 +69,16 @@ function populateDisplay()
 
         //Listener to make the buttons display on screen when clicked
         numbers.addEventListener('click', () => {
-            if (!inputOneTaken) {
+            if (!inputOneTaken && firstNum.length < 10) 
+            {
                 firstNum += i;
                 display.textContent = firstNum;                                         // Show only the first number
-            } else {
+            } 
+            else if (inputOneTaken && secondNum.length < 10)
+            {
                 allInputsTaken = true;
                 secondNum += i;
-                display.textContent = firstNum + " " + operator + " " + secondNum;      // Show the whole expression
+                display.textContent = secondNum;      // Show the whole expression
             }
         });
 
@@ -103,7 +106,7 @@ function populateDisplay()
                 firstNum = result;
                 operator = op;                                          //Set the new operator
                 secondNum = "";                                         //Reset the second number
-                display.textContent = firstNum + " " + operator;        //Update display to show current operation
+                display.textContent = firstNum;        //Update display to show current operation
             }
         });
     });
@@ -146,7 +149,7 @@ function populateDisplay()
         {
             secondNum += ".";
             decimalTwoPresent = true;
-            display.textContent = firstNum + " " + operator + " " + secondNum;
+            display.textContent = secondNum;
         }
     });
 
@@ -177,7 +180,7 @@ function populateDisplay()
             else if (secondNum.length > 1)
             {
                 secondNum = secondNum.substring(0, secondNum.length - 1);
-                display.textContent = firstNum + " " + operator + " " + secondNum;
+                display.textContent = secondNum;
             }
         }
     });
@@ -188,7 +191,7 @@ function operatorPressed(op)
     if (firstNum && !operator) {                            //Ensure a first number exists and no operator is set
         operator = op;                                      //Set the operator
         inputOneTaken = true;                               //Switch to inputting second number
-        display.textContent = firstNum + " " + operator;
+        // display.textContent = firstNum + " " + operator;
     }
 }
 
