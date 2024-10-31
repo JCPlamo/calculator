@@ -44,8 +44,26 @@ function operate(num1, operator, num2)
 
 }
 
-//Testing
-console.log(operate(1,"+",1))
-console.log(operate(1,"-",1))
-console.log(operate(1,"*",1))
-console.log(operate(1,"/",1))
+//Populates display when clicking buttons
+function populateDisplay()
+{
+    const buttons = document.querySelector(".buttons"); // Get the buttons container
+    //Create buttons for the numbers
+    for (let i = 0; i < 10; i++) 
+    {
+        const numbers = document.createElement("button");
+        numbers.classList.add("numbers");
+        numbers.textContent = i;
+
+        // Insert the number button at the beginning of the buttons container
+        buttons.insertBefore(numbers, buttons.firstChild);
+
+    }
+}
+
+populateDisplay(); 
+// Testing
+console.log(operate(1, "+", 1));
+console.log(operate(1, "-", 1));
+console.log(operate(1, "*", 1));
+console.log(operate(1, "/", 1));
