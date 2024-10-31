@@ -59,9 +59,9 @@ const display = document.querySelector(".display");
 //Populates display when clicking buttons
 function populateDisplay()
 {
-    const buttons = document.querySelector(".buttons");                                 // Get the buttons container
+    const numbersContainer = document.querySelector(".numbersContainer");                                 // Get the buttons container
     //Create buttons for the numbers
-    for (let i = 0; i < 10; i++) 
+    for (let i = 9; i >= 0; i--) 
     {
         const numbers = document.createElement("button");
         numbers.classList.add("numbers");
@@ -80,7 +80,7 @@ function populateDisplay()
         });
 
         //Insert the number button at the beginning of the buttons container
-        buttons.insertBefore(numbers, buttons.firstChild);
+        numbersContainer.appendChild(numbers);
 
     }
 

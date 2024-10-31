@@ -1,0 +1,50 @@
+body {
+    padding: 0;
+    margin: 0;
+    zoom: 3;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.display {
+    display: flex;
+    flex-direction: column;
+    border: solid black;
+    width: 300px;
+    height: 50px;
+    font-size: 40px;
+}
+
+.buttonsContainer {
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+    border: solid black;
+    flex-wrap: wrap;
+}
+
+.numbersContainer {
+    display: flex;
+    border: solid black;
+    width: 100px;
+    height: 170px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.numbers {
+    padding: 10px;
+}
+
+.operatorContainer {
+    display: flex;
+    flex-direction: column;
+}
