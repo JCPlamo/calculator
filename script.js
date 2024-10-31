@@ -1,22 +1,26 @@
 //Math functions
 function add(num1, num2)
 {
-    return num1 + num2;
+    let answer = num1 + num2;
+    return Math.round(answer * 100) / 100
 }
 
 function subtract(num1, num2)
 {
-    return num1 - num2;
+    let answer = num1 - num2;
+    return Math.round(answer * 100) / 100
 }
 
 function multiply(num1, num2)
 {
-    return num1 * num2;
+    let answer = num1 * num2;
+    return Math.round(answer * 100) / 100
 }
 
 function divide(num1, num2)
 {
-    return num1 / num2;
+    let answer = num1 / num2;
+    return Math.round(answer * 100) / 100
 }
 
 function operate(num1, operator, num2)
@@ -48,6 +52,8 @@ var operator = "";
 var secondNum = "";
 let inputOneTaken = false;
 let allInputsTaken = false;
+let decimalOnePresent = false;
+let decimalTwoPresent = false;
 const display = document.querySelector(".display");
 
 //Populates display when clicking buttons
@@ -73,7 +79,7 @@ function populateDisplay()
             }
         });
 
-        // Insert the number button at the beginning of the buttons container
+        //Insert the number button at the beginning of the buttons container
         buttons.insertBefore(numbers, buttons.firstChild);
 
     }
@@ -82,21 +88,21 @@ function populateDisplay()
     const operatorButtons = document.querySelectorAll(".operatorBtns")
     operatorButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const op = button.textContent; // Get the operator symbol from the button
+            const op = button.textContent; //Get the operator symbol from the button
 
-            if (!firstNum || !operator || !secondNum) // Check if inputs are not all taken
+            if (!firstNum || !operator || !secondNum) //Check if inputs are not all taken
             {
-                operatorPressed(op); // Call the function to handle the operator
+                operatorPressed(op); //Call the function to handle the operator
             }
             //If all inputs are taken, and user clicks on another operator button
             else
             {
                 const result = operate(firstNum, operator, secondNum);
-                display.textContent = result; // Display the result
+                display.textContent = result; //Display the result
                 firstNum = result;
-                operator = op; // Set the new operator
-                secondNum = ""; // Reset the second number
-                display.textContent = firstNum + " " + operator; // Update display to show current operation
+                operator = op; //Set the new operator
+                secondNum = ""; //Reset the second number
+                display.textContent = firstNum + " " + operator; //Update display to show current operation
             }
         });
     });
@@ -117,13 +123,31 @@ function populateDisplay()
         resetCalculator();
     });
 
+    //Listener for the decimal button
+    const decimal = document.querySelector(".decimalBtn")
+    decimal.addEventListener('click', () => {
+        //Decimal for the first number
+        if (!decimalOnePresent && firstNum && !operator)
+        {
+            firstNum += ".";    //Adds decimal to the input
+            decimalOnePresent = true;
+            display.textContent = firstNum;
+        }
+        //Decimal for the second number
+        else if (!decimalTwoPresent && secondNum)
+        {
+            secondNum += ".";
+            decimalTwoPresent = true;
+            display.textContent = firstNum + " " + operator + " " + secondNum;
+        }
+    });
+
 }
 
 function operatorPressed(op) {
-    if (firstNum && !operator) { // Ensure a first number exists and no operator is set
-        operator = op; // Set the operator
-        inputOneTaken = true; // Switch to inputting second number
-        // You may want to update the display to show the operator, e.g.:
+    if (firstNum && !operator) { //Ensure a first number exists and no operator is set
+        operator = op; //Set the operator
+        inputOneTaken = true; //Switch to inputting second number
         display.textContent = firstNum + " " + operator;
     }
 }
@@ -133,11 +157,8 @@ function resetCalculator() {
     operator = "";
     secondNum = "";
     inputOneTaken = false; // Reset input tracking
+    decimalOnePresent = false;
+    decimalTwoPresent = false;
 }
 
 populateDisplay(); 
-// Testing
-console.log(operate(1, "+", 1));
-console.log(operate(1, "-", 1));
-console.log(operate(1, "*", 1));
-console.log(operate(1, "/", 1));
