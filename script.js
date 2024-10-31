@@ -47,6 +47,7 @@ var firstNum = "";
 var operator = "";
 var secondNum = "";
 let inputOneTaken = false;
+let allInputsTaken = false;
 const display = document.querySelector(".display");
 
 //Populates display when clicking buttons
@@ -66,6 +67,7 @@ function populateDisplay()
                 firstNum += i;
                 display.textContent = firstNum; // Show only the first number
             } else {
+                allInputsTaken = true;
                 secondNum += i;
                 display.textContent = firstNum + " " + operator + " " + secondNum; // Show the whole expression
             }
@@ -81,7 +83,21 @@ function populateDisplay()
     operatorButtons.forEach(button => {
         button.addEventListener('click', () => {
             const op = button.textContent; // Get the operator symbol from the button
-            operatorPressed(op); // Call the function to handle the operator
+
+            if (!firstNum || !operator || !secondNum) // Check if inputs are not all taken
+            {
+                operatorPressed(op); // Call the function to handle the operator
+            }
+            //If all inputs are taken, and user clicks on another operator button
+            else
+            {
+                const result = operate(firstNum, operator, secondNum);
+                display.textContent = result; // Display the result
+                firstNum = result;
+                operator = op; // Set the new operator
+                secondNum = ""; // Reset the second number
+                display.textContent = firstNum + " " + operator; // Update display to show current operation
+            }
         });
     });
 
@@ -97,7 +113,7 @@ function populateDisplay()
     //Listener for the clear button
     const clear = document.querySelector(".clearBtn")
     clear.addEventListener('click', () => {
-        display.textContent = " ";
+        display.textContent = "";
         resetCalculator();
     });
 
