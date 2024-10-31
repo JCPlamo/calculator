@@ -15,7 +15,7 @@ body {
     display: flex;
     flex-direction: column;
     border: solid black;
-    width: 300px;
+    width: 200px;
     height: 50px;
     font-size: 40px;
 }
